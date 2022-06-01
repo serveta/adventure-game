@@ -8,10 +8,10 @@ This game is made for learning the logic of Object-Oriented Programing with the 
 
 ## Characters
 |Name|Health|Damage|Coin|
-|----|------|------|----|
+|----|------|------|---|
 |Samurai|21|5|15|
 |Archer|18|7|20|
-|Knight|24|8|25|
+|Knight|24|8|5|
 
 ## Locations
 |Zone|Feature|
