@@ -1,3 +1,5 @@
+import player.Player;
+
 import java.util.Scanner;
 
 public class Game {
@@ -19,7 +21,7 @@ public class Game {
         String playerName;
 
         System.out.println("*** Welcome to the Adventure Game! ***");
-        System.out.print("* Player name: ");
+        System.out.print("* player.Player name: ");
         playerName = input.next();
         Player player = new Player(playerName);
 

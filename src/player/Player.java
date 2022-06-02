@@ -1,3 +1,5 @@
+package player;
+
 import gameCharacter.Archer;
 import gameCharacter.GameCharacter;
 import gameCharacter.Knight;
