@@ -83,6 +83,11 @@ public class Player {
                 System.out.println("You can choose between 1 and " + gameCharacters.length);
             }
         }
+
+        repeatHyphen(40);
+        System.out.println("So you are " + getCharacter() + " " + getPlayerName());
+        System.out.println("Damage: " + getDamage() + ", Health: " + getHealth() + ", Coin: " + getCoin());
+        repeatHyphen(40);
     }
 
     public void initCharacter(GameCharacter gameCharacter) {
@@ -90,5 +95,12 @@ public class Player {
         setHealth(gameCharacter.getHealth());
         setDamage(gameCharacter.getDamage());
         setCoin(gameCharacter.getCoin());
+    }
+
+    static void repeatHyphen(int times) {
+        while (times-->0) {
+            System.out.print("-");
+        }
+        System.out.println();
     }
 }
