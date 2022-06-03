@@ -35,34 +35,35 @@ public class Game {
                 new Cave(getPlayer()),
                 new River(getPlayer())
         };
-        boolean isLocationChoose = false;
-        int count = 1;
 
-        System.out.println("*** Here it's your map! ***");
-        for (Location location : locations) {
-            System.out.println(count + ") " + location.getLocationName());
-            count++;
-        }
+        boolean isGameOver = false;
 
-        while (!isLocationChoose) {
-            System.out.print(" ** Where do you want to go: ");
-            int location = input.nextInt();
+        while (!isGameOver) {
+            boolean isLocationChoose = false;
+            int count = 1;
+            int selectedLocation = 0;
 
-            if (location > 0 && location < locations.length) {
-                isLocationChoose = true;
-            } else {
-                System.out.println("You can choose between 1 and " + locations.length);
+            System.out.println("*** Here it's your map! ***");
+            for (Location location : locations) {
+                System.out.println(count + ") " + location.getLocationName());
+                count++;
             }
 
-            goToLocation(locations[--location]);
-        }
-    }
+            while (!isLocationChoose) {
+                System.out.print(" ** Where do you want to go: ");
+                selectedLocation = input.nextInt();
 
-    public void goToLocation(Location location) {
-        if (!location.onLocation()) {
-            System.out.println("GAME OVER!");
-        } else {
-            chooseLocation();
+                if (selectedLocation > 0 && selectedLocation < locations.length) {
+                    isLocationChoose = true;
+                } else {
+                    System.out.println("You can choose between 1 and " + locations.length);
+                }
+            }
+
+            if(!locations[--selectedLocation].onLocation()){
+                System.out.println("GAME OVER!");
+                isGameOver = true;
+            }
         }
     }
 
