@@ -1,20 +1,10 @@
 package gameLocation;
 
+import gameEnemy.Zombie;
 import player.Player;
 
 public class River extends BattleLocation {
     public River(Player player) {
-        super(player, "River");
-    }
-
-    @Override
-    public void combat() {
-
-    }
-
-    @Override
-    public boolean onLocation() {
-        System.out.println("**************RIVER**************");
-        return false;
+        super(player, "River", new Zombie(), 5,"water");
     }
 }
