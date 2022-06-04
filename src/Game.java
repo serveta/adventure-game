@@ -37,11 +37,16 @@ public class Game {
         };
 
         boolean isGameOver = false;
+        int selectedLocation = 0;
 
         while (!isGameOver) {
             boolean isLocationChoose = false;
             int count = 1;
-            int selectedLocation = 0;
+
+
+            repeatHyphen(110);
+            playerInfo();
+            repeatHyphen(110);
 
             System.out.println("*** Here it's your map! ***");
             for (Location location : locations) {
@@ -49,21 +54,33 @@ public class Game {
                 count++;
             }
 
+            System.out.println((locations.length + 1) + "- Exit");
+
+            repeatHyphen(30);
+
             while (!isLocationChoose) {
                 System.out.print(" ** Where do you want to go: ");
                 selectedLocation = input.nextInt();
 
-                if (selectedLocation > 0 && selectedLocation < locations.length) {
+                if (selectedLocation == (locations.length + 1)) {
+                    isLocationChoose = true;
+                } else if (selectedLocation > 0 && selectedLocation <= locations.length) {
                     isLocationChoose = true;
                 } else {
-                    System.out.println("You can choose between 1 and " + locations.length);
+                    System.out.println("* You can choose between 1 and " + locations.length);
                 }
             }
 
-            if(!locations[--selectedLocation].onLocation()){
+            if (selectedLocation == (locations.length + 1)) {
+                break;
+            } else if (!locations[--selectedLocation].onLocation()) {
                 System.out.println("GAME OVER!");
                 isGameOver = true;
             }
+        }
+
+        if (selectedLocation == (locations.length + 1)){
+            System.out.println("* Game terminated.");
         }
     }
 
@@ -79,5 +96,22 @@ public class Game {
 
         chooseLocation();
 
+    }
+
+    private void playerInfo() {
+        System.out.print("!! Player INFO : ");
+        System.out.println("Health: " + player.getHealth() +
+                " | " + "Damage: " + player.getDamage() +
+                " | " + "Coin: " + player.getCoin() +
+                " | " + "Weapon: " + player.getInventory().getWeapon().getName() +
+                " | " + "Armor: " + player.getInventory().getArmor().getName() +
+                " | " + "Defence: " + player.getInventory().getArmor().getDefence());
+    }
+
+    private void repeatHyphen(int times) {
+        while (times-- > 0) {
+            System.out.print("-");
+        }
+        System.out.println();
     }
 }

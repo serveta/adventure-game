@@ -8,6 +8,7 @@ import gameCharacter.Samurai;
 import java.util.Scanner;
 
 public class Player {
+    private Inventory inventory;
     private String playerName;
     private String character;
     private int health;
@@ -16,6 +17,7 @@ public class Player {
 
     public Player(String playerName) {
         this.playerName = playerName;
+        this.inventory = new Inventory();
     }
 
     public String getPlayerName() {
@@ -51,11 +53,19 @@ public class Player {
     }
 
     public int getDamage() {
-        return damage;
+        return damage + this.inventory.getWeapon().getDamage();
     }
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 
     public void createCharacter() {
@@ -84,10 +94,9 @@ public class Player {
             }
         }
 
-        repeatHyphen(40);
+        repeatHyphen(30);
         System.out.println("So you are " + getCharacter() + " " + getPlayerName());
-        System.out.println("Damage: " + getDamage() + ", Health: " + getHealth() + ", Coin: " + getCoin());
-        repeatHyphen(40);
+        repeatHyphen(30);
     }
 
     public void initCharacter(GameCharacter gameCharacter) {

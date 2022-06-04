@@ -1,10 +1,10 @@
 package gameTool;
 
-public abstract class Armor extends Tool {
-    private static int count = 0;
+public class Armor extends Tool {
+    private static int count = -1;
     int defence;
 
-    public Armor(String name, int price, int defence) {
+    public Armor(String name, int defence, int price) {
         super(++count, name, price);
         this.defence = defence;
     }
@@ -15,5 +15,9 @@ public abstract class Armor extends Tool {
 
     public void setDefence(int defence) {
         this.defence = defence;
+    }
+
+    public Armor getObjById(int id) {
+        return this.getId() == id ? this : null;
     }
 }
