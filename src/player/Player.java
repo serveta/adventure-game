@@ -41,6 +41,9 @@ public class Player {
     }
 
     public void setHealth(int health) {
+        if (health < 0) {
+            health = 0;
+        }
         this.health = health;
     }
 
@@ -86,7 +89,7 @@ public class Player {
             System.out.print(" ** Your choose: ");
             character = input.nextInt();
 
-            if (character>0 && character<4){
+            if (character > 0 && character < 4) {
                 initCharacter(gameCharacters[--character]);
                 isCharacterChoose = true;
             } else {
@@ -107,7 +110,7 @@ public class Player {
     }
 
     static void repeatHyphen(int times) {
-        while (times-->0) {
+        while (times-- > 0) {
             System.out.print("-");
         }
         System.out.println();

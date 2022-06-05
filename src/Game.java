@@ -74,7 +74,8 @@ public class Game {
             if (selectedLocation == (locations.length + 1)) {
                 break;
             } else if (!locations[--selectedLocation].onLocation()) {
-                System.out.println("GAME OVER!");
+                playerInfo();
+                System.out.println("*** GAME OVER! ***");
                 isGameOver = true;
             }
         }
