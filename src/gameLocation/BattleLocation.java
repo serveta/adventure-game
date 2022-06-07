@@ -70,7 +70,13 @@ public abstract class BattleLocation extends Location {
                 if (combat(getEnemyNumber())) {
                     if (!this.isFlee) {
                         getPlayer().setCoin(getPlayer().getCoin() + (getEnemy().getLoot() * getEnemyNumber()));
-                        // Here will add the prize to the player inventory...
+                        if (getPrize().equals("water")){
+                            getPlayer().getInventory().setWater(true);
+                        } else if (getPrize().equals("food")) {
+                            getPlayer().getInventory().setFood(true);
+                        } else if (getPrize().equals("firewood")) {
+                            getPlayer().getInventory().setFirewood(true);
+                        }
                         System.out.println("* You win and loot: " + (getEnemy().getLoot() * getEnemyNumber()) + " coins + " + getPrize());
                     }
                 } else {

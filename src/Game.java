@@ -100,13 +100,32 @@ public class Game {
     }
 
     private void playerInfo() {
-        System.out.print("!! Player INFO : ");
-        System.out.println("Health: " + player.getHealth() +
-                " | " + "Damage: " + player.getDamage() +
-                " | " + "Coin: " + player.getCoin() +
-                " | " + "Weapon: " + player.getInventory().getWeapon().getName() +
-                " | " + "Armor: " + player.getInventory().getArmor().getName() +
-                " | " + "Defence: " + player.getInventory().getArmor().getDefence());
+        String water = " --- ",
+                food = " --- ",
+                firewood = " --- ";
+
+        if (player.getInventory().isWater()) {
+            water = " +++ ";
+        }
+        if (player.getInventory().isFood()) {
+            food = " +++ ";
+        }
+        if (player.getInventory().isFirewood()) {
+            firewood = " +++ ";
+        }
+
+        System.out.print("!! Player INFO \t: " +
+                "Health: " + player.getHealth() +
+                "\t| " + "Damage: " + player.getDamage() +
+                "\t| " + "Coin: " + player.getCoin() +
+                "\t| " + "Defence: " + player.getInventory().getArmor().getDefence() +
+                "\n!! Inventory \t: " +
+                "Weapon: " + player.getInventory().getWeapon().getName() +
+                "\t| " + "Armor: " + player.getInventory().getArmor().getName() +
+                "\t| " + "Water: " + water +
+                "\t| " + "Food: " + food +
+                "\t| " + "Firewood: " + firewood +
+                "\n");
     }
 
     private void repeatHyphen(int times) {
