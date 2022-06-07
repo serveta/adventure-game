@@ -13,6 +13,7 @@ public abstract class BattleLocation extends Location {
     private String prize;
     private int maxEnemy;
     private int enemyNumber;
+    private boolean isFlee = false;
 
     public BattleLocation(Player player, String locationName, Enemy enemy, int maxEnemy, String prize) {
         super(player, locationName);
@@ -67,9 +68,11 @@ public abstract class BattleLocation extends Location {
 
             if (select.toLowerCase().trim().equals("y")) {
                 if (combat(getEnemyNumber())) {
-                    getPlayer().setCoin(getPlayer().getCoin() + (getEnemy().getLoot() * getEnemyNumber()));
-                    // Here will add the prize to the player inventory...
-                    System.out.println("* You win and loot: " + (getEnemy().getLoot() * getEnemyNumber()) + " coins + " + getPrize());
+                    if (!this.isFlee) {
+                        getPlayer().setCoin(getPlayer().getCoin() + (getEnemy().getLoot() * getEnemyNumber()));
+                        // Here will add the prize to the player inventory...
+                        System.out.println("* You win and loot: " + (getEnemy().getLoot() * getEnemyNumber()) + " coins + " + getPrize());
+                    }
                 } else {
                     return false;
                 }
@@ -89,7 +92,7 @@ public abstract class BattleLocation extends Location {
     public boolean combat(int enemyNumber) {
         int enemyHealth = getEnemy().getHealth();
         boolean starter = whoWillStart();
-        boolean isFlee = false;
+        this.isFlee = false;
 
         for (int i = 1; i <= enemyNumber; i++) {
             getEnemy().setHealth(enemyHealth);
