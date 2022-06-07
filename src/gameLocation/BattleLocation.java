@@ -1,6 +1,8 @@
 package gameLocation;
 
 import gameEnemy.Enemy;
+import gameTool.Armor;
+import gameTool.Weapon;
 import player.Player;
 
 import java.util.Random;
@@ -14,12 +16,14 @@ public abstract class BattleLocation extends Location {
     private int maxEnemy;
     private int enemyNumber;
     private boolean isFlee = false;
+    private int enemyHealth;
 
     public BattleLocation(Player player, String locationName, Enemy enemy, int maxEnemy, String prize) {
         super(player, locationName);
         this.enemy = enemy;
         this.maxEnemy = maxEnemy;
         this.prize = prize;
+        this.enemyHealth = getEnemy().getHealth();
     }
 
     public Enemy getEnemy() {
@@ -70,14 +74,19 @@ public abstract class BattleLocation extends Location {
                 if (combat(getEnemyNumber())) {
                     if (!this.isFlee) {
                         getPlayer().setCoin(getPlayer().getCoin() + (getEnemy().getLoot() * getEnemyNumber()));
-                        if (getPrize().equals("water")){
+                        if (getPrize().equals("water")) {
                             getPlayer().getInventory().setWater(true);
                         } else if (getPrize().equals("food")) {
                             getPlayer().getInventory().setFood(true);
                         } else if (getPrize().equals("firewood")) {
                             getPlayer().getInventory().setFirewood(true);
+                        } else if (getPrize().equals("secret")) {
+                            secretPrize();
+                            getEnemy().setHealth(this.enemyHealth);
                         }
-                        System.out.println("* You win and loot: " + (getEnemy().getLoot() * getEnemyNumber()) + " coins + " + getPrize());
+                        if (!getPrize().equals("secret")) {
+                            System.out.println("* You win and loot: " + (getEnemy().getLoot() * getEnemyNumber()) + " coins + " + getPrize());
+                        }
                     }
                 } else {
                     return false;
@@ -96,7 +105,6 @@ public abstract class BattleLocation extends Location {
     }
 
     public boolean combat(int enemyNumber) {
-        int enemyHealth = getEnemy().getHealth();
         boolean starter = whoWillStart();
         this.isFlee = false;
 
@@ -188,6 +196,58 @@ public abstract class BattleLocation extends Location {
             return true;
         }
         return false;
+    }
+
+    private void secretPrize() {
+        int randomPrize = random.nextInt(100);
+        if (randomPrize < 15) {
+            System.out.println("* Your prize: " + randomPrize("weapon"));
+        } else if (randomPrize < 30) {
+            System.out.println("* Your prize: " + randomPrize("armor"));
+        } else if (randomPrize < 55) {
+            System.out.println("* Your prize: " + randomPrize("coin"));
+        } else {
+            System.out.println("* There doesn't seem to be anything to loot around.");
+        }
+    }
+
+    private String randomPrize(String prizeName) {
+        int rndPrize = random.nextInt(100);
+        if (prizeName.equals("weapon")) {
+            if (rndPrize < 50) {
+                getPlayer().getInventory().setWeapon(new Weapon("Sword", 2, 25));
+                return "sword";
+            } else if (rndPrize < 80) {
+                getPlayer().getInventory().setWeapon(new Weapon("Pistol", 3, 35));
+                return "pistol";
+            } else {
+                getPlayer().getInventory().setWeapon(new Weapon("Rifle", 7, 45));
+                return "rifle";
+            }
+        } else if (prizeName.equals("armor")) {
+            if (rndPrize < 50) {
+                getPlayer().getInventory().setArmor(new Armor("Light", 1, 15));
+                return "light";
+            } else if (rndPrize < 80) {
+                getPlayer().getInventory().setArmor(new Armor("Medium", 3, 25));
+                return "medium";
+            } else {
+                getPlayer().getInventory().setArmor(new Armor("Heavy", 5, 40));
+                return "heavy";
+            }
+        } else if (prizeName.equals("coin")) {
+            if (rndPrize < 50) {
+                getPlayer().setCoin(getPlayer().getCoin() + 1);
+                return "1 coin";
+            } else if (rndPrize < 80) {
+                getPlayer().setCoin(getPlayer().getCoin() + 5);
+                return "5 coins";
+            } else {
+                getPlayer().setCoin(getPlayer().getCoin() + 10);
+                return "10 coins";
+            }
+        }
+        return  "";
     }
 
     private void repeatHyphen(int times) {

@@ -33,7 +33,8 @@ public class Game {
                 new ToolStore(getPlayer()),
                 new Forest(getPlayer()),
                 new Cave(getPlayer()),
-                new River(getPlayer())
+                new River(getPlayer()),
+                new Pit(getPlayer())
         };
 
         boolean isGameOver = false;
