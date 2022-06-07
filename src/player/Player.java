@@ -12,6 +12,7 @@ public class Player {
     private String playerName;
     private String character;
     private int health;
+    private int originalHealth;
     private int coin;
     private int damage;
 
@@ -63,6 +64,14 @@ public class Player {
         this.damage = damage;
     }
 
+    public int getOriginalHealth() {
+        return originalHealth;
+    }
+
+    public void setOriginalHealth(int originalHealth) {
+        this.originalHealth = originalHealth;
+    }
+
     public Inventory getInventory() {
         return inventory;
     }
@@ -105,6 +114,7 @@ public class Player {
     public void initCharacter(GameCharacter gameCharacter) {
         setCharacter(gameCharacter.getCharacterName());
         setHealth(gameCharacter.getHealth());
+        setOriginalHealth(gameCharacter.getHealth());
         setDamage(gameCharacter.getDamage());
         setCoin(gameCharacter.getCoin());
     }
