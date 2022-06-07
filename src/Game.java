@@ -75,9 +75,14 @@ public class Game {
             if (selectedLocation == (locations.length + 1)) {
                 break;
             } else if (!locations[--selectedLocation].onLocation()) {
-                playerInfo();
-                System.out.println("*** GAME OVER! ***");
-                isGameOver = true;
+                if (getPlayer().getInventory().isFirewood() && getPlayer().getInventory().isFood() && getPlayer().getInventory().isWater()) {
+                    System.out.println("*** CONGRATS YOU WINNING THE GAME ***");
+                    break;
+                } else {
+                    playerInfo();
+                    System.out.println("*** GAME OVER! ***");
+                    isGameOver = true;
+                }
             }
         }
 

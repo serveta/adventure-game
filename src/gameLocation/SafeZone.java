@@ -13,6 +13,18 @@ public class SafeZone extends SafeLocation {
         System.out.println("* Welcome your home! When you rest your health will be better.");
         getPlayer().setHealth(getPlayer().getOriginalHealth());
         System.out.println("* You're looking better now.");
+
+        if(isWin()){
+            return false;
+        }
+
         return true;
+    }
+
+    public boolean isWin() {
+        if (getPlayer().getInventory().isFirewood() && getPlayer().getInventory().isFood() && getPlayer().getInventory().isWater()) {
+            return true;
+        }
+        return false;
     }
 }
