@@ -24,12 +24,12 @@ This game is made for learning the logic of Object-Oriented Programing with the 
 | Pit        | There are snakes as an enemy. The character can loot weapons or armors here. |
 
 ## Enemies
-|Name| Health |Damage| Loot           |
-|----|--------|------|----------------|
-|Zombie| 10     |3| 4 coins        |
-|Vampire| 14     |4| 7 coins        |
-|Bear| 20     |7| 12 coins       |
-|Snake| 3 - 6  |12| Weapon / Armor |
+|Name| Health |Damage| Loot                   |
+|----|--------|------|------------------------|
+|Zombie| 10     |3| 4 coins                |
+|Vampire| 14     |4| 7 coins                |
+|Bear| 20     |7| 12 coins               |
+|Snake| 3 - 6  |12| Weapon / Armor / Coins |
 
 ## Weapons
 |Name|Damage|Price|
