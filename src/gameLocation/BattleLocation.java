@@ -17,6 +17,7 @@ public abstract class BattleLocation extends Location {
     private int enemyNumber;
     private boolean isFlee = false;
     private int enemyHealth;
+    private int originalDamage;
 
     public BattleLocation(Player player, String locationName, Enemy enemy, int maxEnemy, String prize) {
         super(player, locationName);
@@ -24,6 +25,7 @@ public abstract class BattleLocation extends Location {
         this.maxEnemy = maxEnemy;
         this.prize = prize;
         this.enemyHealth = getEnemy().getHealth();
+        this.originalDamage = getEnemy().getDamage();
     }
 
     public Enemy getEnemy() {
@@ -129,18 +131,20 @@ public abstract class BattleLocation extends Location {
                     }
                 }
 
-                if (starter) {
-                    if (getEnemy().getHealth() > 0) {
-                        enemyHitThePlayer();
-                        getCombatInfo(i);
-                    }
-                } else {
-                    if (getPlayer().getHealth() > 0) {
-                        if (isAttackOrFlee()) {
-                            playerHitTheEnemy();
+                if (!isFlee) {
+                    if (starter) {
+                        if (getEnemy().getHealth() > 0) {
+                            enemyHitThePlayer();
                             getCombatInfo(i);
-                        } else {
-                            isFlee = true;
+                        }
+                    } else {
+                        if (getPlayer().getHealth() > 0) {
+                            if (isAttackOrFlee()) {
+                                playerHitTheEnemy();
+                                getCombatInfo(i);
+                            } else {
+                                isFlee = true;
+                            }
                         }
                     }
                 }
@@ -182,12 +186,21 @@ public abstract class BattleLocation extends Location {
     }
 
     private void enemyHitThePlayer() {
+        int enemyHit;
         System.out.println("* " + getEnemy().getEnemyName() + " hit.");
-        int enemyHit = getEnemy().getDamage() - getPlayer().getInventory().getArmor().getDefence();
+
+        if (getEnemy().getEnemyName().equals("Snake")) {
+            getEnemy().setDamage(this.originalDamage);
+            enemyHit = getEnemy().getDamage() - random.nextInt(4);
+            getEnemy().setDamage(enemyHit);
+        }
+
+        enemyHit = getEnemy().getDamage() - getPlayer().getInventory().getArmor().getDefence();
         if (enemyHit < 0) {
             enemyHit = 0;
         }
         getPlayer().setHealth(getPlayer().getHealth() - enemyHit);
+
     }
 
     private boolean isAttackOrFlee() {
@@ -247,7 +260,7 @@ public abstract class BattleLocation extends Location {
                 return "10 coins";
             }
         }
-        return  "";
+        return "";
     }
 
     private void repeatHyphen(int times) {
